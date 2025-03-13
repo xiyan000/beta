@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>猜猜</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+        input, button { margin: 10px; padding: 10px; font-size: 16px; }
+        #response { margin-top: 20px; font-weight: bold; color: pink; }
+    </style>
+</head>
+<body>
+    <h2>输入测试</h2>
+    <input type="text" id="userInput" placeholder="输入内容">
+    <button onclick="checkInput()">提交</button>
+    <p id="response"></p>
+
+    <script>
+        function checkInput() {
+            let input = document.getElementById("userInput").value;
+            let response = document.getElementById("response");
+            
+            let keywordResponses = {
+                "你好": "你好喵",
+                "vrc": "玩vrc玩的",
+                "月月": "请问你看到可爱的月月了吗",
+                "评价": "呆猫"
+            };
+            
+            let found = false;
+            for (let keyword in keywordResponses) {
+                if (input.includes(keyword)) {
+                    response.textContent = keywordResponses[keyword];
+                    found = true;
+                    break;
+                }
+            }
+            
+            if (!found) {
+                response.textContent = "";
+            }
+        }
+    </script>
+</body>
+</html>
