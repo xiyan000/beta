@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>猜猜</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+        input, button { margin: 10px; padding: 10px; font-size: 16px; }
+        #response { margin-top: 20px; font-weight: bold; color: pink; }
+    </style>
+</head>
+<body>
+    <h2>输入测试</h2>
+    <input type="text" id="userInput" placeholder="输入内容">
+    <button onclick="checkInput()">提交</button>
+    <p id="response"></p>
+
+    <script>
+        function checkInput() {
+            let input = document.getElementById("userInput").value;
+            let response = document.getElementById("response");
+            
+            // 改进后的Base64编码（UTF-8兼容）
+            const encodedResponses = {
+                "5L2g5aW9": "5L2g5aW95Za1",       
+                "dnJj": "546w5rGv554546pdnJj546p55qE",       
+                "5pyI5pyI": "6K+36Zeu5L2g55yL5Yiw5Y+v54ix55qE5pyI5pyI5LqG5ZCX", 
+                "6K+E5Lu3": "5ZGG54yr",              
+                "5rKh5pyJ": "5aW95ZCn"
+            };
+        
+            // UTF-8解码函数
+            const base64ToUtf8 = (base64) => {
+                return decodeURIComponent(
+                    atob(base64).split('').map(c => 
+                        '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+                    ).join('')
+                );
+            };
+        
+            let found = false;
+            for (let encodedKey in encodedResponses) {
+                try {
+                    const keyword = base64ToUtf8(encodedKey);
+                    if (input.includes(keyword)) {
+                        response.textContent = base64ToUtf8(encodedResponses[encodedKey]);
+                        found = true;
+                        break;
+                    }
+                } catch(e) { console.error(e) }
+            }
+            
+            if (!found) response.textContent = "";
+        }
+        </script>
+</body>
+</html>
