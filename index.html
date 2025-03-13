@@ -21,7 +21,6 @@
             let input = document.getElementById("userInput").value;
             let response = document.getElementById("response");
             
-            // 改进后的Base64编码（UTF-8兼容）
             const encodedResponses = {
                 "5L2g5aW9": "5L2g5aW95Za1",       
                 "dnJj": "546w5rGv554546pdnJj546p55qE",       
@@ -30,7 +29,6 @@
                 "5rKh5pyJ": "5aW95ZCn"
             };
         
-            // UTF-8解码函数
             const base64ToUtf8 = (base64) => {
                 return decodeURIComponent(
                     atob(base64).split('').map(c => 
@@ -51,7 +49,7 @@
                 } catch(e) { console.error(e) }
             }
             
-            if (!found) response.textContent = "什么都没有哦";
+            if (!found) response.textContent = "什么都没有哦，再试试别的吧";
         }
         </script>
 </body>
